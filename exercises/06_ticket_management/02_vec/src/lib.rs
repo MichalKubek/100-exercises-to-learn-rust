@@ -1,3 +1,4 @@
+
 // Given a number `n`, return the `n+1`th number in the Fibonacci sequence.
 //
 // The Fibonacci sequence is defined as follows:
@@ -10,12 +11,32 @@
 //
 // We expect `fibonacci(0)` to return `0`, `fibonacci(1)` to return `1`,
 // `fibonacci(2)` to return `1`, and so on.
+pub fn fibonacci_v1(n: u32) -> u32 {
+    if n == 0 {
+        return 0;
+    }
+
+    let (mut a, mut b) = (0, 1);
+    let mut idx: u32 = 1;
+    while idx < n {
+        (a, b) = (b, a + b);
+        idx+=1;
+    }
+    b
+}
+
 pub fn fibonacci(n: u32) -> u32 {
-    // TODO: implement the `fibonacci` function
-    //
-    // Hint: use a `Vec` to memoize the results you have already calculated
-    // so that you don't have to recalculate them several times.
-    todo!()
+    if n == 0 {
+        return 0;
+    }
+
+    let mut data = vec![0, 1];
+
+    let n: usize = n as usize;
+    for i in 2..=n {
+        data.push(data[i-2] + data[i-1]);
+    }
+    data[n]
 }
 
 #[cfg(test)]
