@@ -1,6 +1,14 @@
 // TODO: Define a function named `squared` that raises all `i32`s within a slice to the power of 2.
 //  The slice should be modified in place.
 
+use core::panic;
+
+pub fn squared(values: &mut [i32]) {
+    for i in values.iter_mut() {
+        *i = (*i).pow(2);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
