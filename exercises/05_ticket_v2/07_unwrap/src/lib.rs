@@ -1,8 +1,18 @@
+use core::panic;
+
 // TODO: `easy_ticket` should panic when the title is invalid.
 //   When the description is invalid, instead, it should use a default description:
 //   "Description not provided".
 fn easy_ticket(title: String, description: String, status: Status) -> Ticket {
-    todo!()
+    match Ticket::new( title, description, status ) {
+        Ok(ticket) => {
+            return ticket
+    },
+    Err(error) => {
+        panic!("{}",error);
+    }
+    }
+
 }
 
 #[derive(Debug, PartialEq, Clone)]
@@ -21,17 +31,15 @@ enum Status {
 
 impl Ticket {
     pub fn new(title: String, description: String, status: Status) -> Result<Ticket, String> {
+        let mut description: String = description.clone();
         if title.is_empty() {
             return Err("Title cannot be empty".to_string());
         }
         if title.len() > 50 {
             return Err("Title cannot be longer than 50 bytes".to_string());
         }
-        if description.is_empty() {
-            return Err("Description cannot be empty".to_string());
-        }
-        if description.len() > 500 {
-            return Err("Description cannot be longer than 500 bytes".to_string());
+        if description.is_empty() ||  description.len() > 500 {
+            description = "Description not provided".to_string();
         }
 
         Ok(Ticket {

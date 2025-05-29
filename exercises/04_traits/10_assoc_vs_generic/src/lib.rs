@@ -12,6 +12,28 @@
 // interested in learning more about it.
 // You don't have to though: it's perfectly okay to write three separate
 // implementations manually. Venture further only if you're curious.
+pub trait Power<T> {
+    fn power(self, n: T) -> Self;
+}
+
+
+impl Power<u16> for u32 {
+    fn power(self, n: u16) -> Self {
+        (0..n).fold(1, |acc, _| acc * 2)
+    }
+}
+
+impl Power<u32> for u32 {
+    fn power(self, n: u32) -> Self {
+        (0..n).fold(1, |acc, _| acc * 2)
+    }
+}
+
+impl Power<&u32> for u32 {
+    fn power(self, n: &u32) -> Self {
+        (0..*n).fold(1, |acc, _| acc * 2)
+    }
+}
 
 #[cfg(test)]
 mod tests {
